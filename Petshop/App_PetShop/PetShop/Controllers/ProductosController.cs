@@ -9,7 +9,7 @@ namespace PetShop.Controllers
 {
     public class ProductosController : Controller
     {
-        bd_dogeEntities1 bd_doge = new bd_dogeEntities1();
+        bd_dogeEntitiesSqlServer bd_doge = new bd_dogeEntitiesSqlServer();
 
         public ActionResult Alimentos()
         {

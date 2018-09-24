@@ -16,10 +16,10 @@ namespace PetShop
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class bd_dogeEntities1 : DbContext
+    public partial class bd_dogeEntitiesSqlServer : DbContext
     {
-        public bd_dogeEntities1()
-            : base("name=bd_dogeEntities1")
+        public bd_dogeEntitiesSqlServer()
+            : base("name=bd_dogeEntitiesSqlServer")
         {
         }
     
@@ -28,12 +28,33 @@ namespace PetShop
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<tb_rol> tb_rol { get; set; }
-        public DbSet<tb_usuario> tb_usuario { get; set; }
         public DbSet<tb_categoria> tb_categoria { get; set; }
         public DbSet<tb_producto> tb_producto { get; set; }
+        public DbSet<tb_rol> tb_rol { get; set; }
+        public DbSet<tb_usuario> tb_usuario { get; set; }
         public DbSet<tb_venta> tb_venta { get; set; }
         public DbSet<tb_ventaxproducto> tb_ventaxproducto { get; set; }
+    
+        public virtual int registrarDetalleVenta(Nullable<int> idVenta, Nullable<int> idProducto, Nullable<int> cantidad, Nullable<decimal> precio)
+        {
+            var idVentaParameter = idVenta.HasValue ?
+                new ObjectParameter("idVenta", idVenta) :
+                new ObjectParameter("idVenta", typeof(int));
+    
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("idProducto", idProducto) :
+                new ObjectParameter("idProducto", typeof(int));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("cantidad", cantidad) :
+                new ObjectParameter("cantidad", typeof(int));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("precio", precio) :
+                new ObjectParameter("precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("registrarDetalleVenta", idVentaParameter, idProductoParameter, cantidadParameter, precioParameter);
+        }
     
         public virtual int registrarUsuario(string correoUsuario, string claveUsuario, string nombresUsuario, string apePatUsuario, string apeMatUsuario, string dniUsuario, Nullable<System.DateTime> fecNacimientoUsuario, string telefonoUsuario, string celularUsuario, Nullable<int> idRol)
         {
@@ -78,27 +99,6 @@ namespace PetShop
                 new ObjectParameter("idRol", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("registrarUsuario", correoUsuarioParameter, claveUsuarioParameter, nombresUsuarioParameter, apePatUsuarioParameter, apeMatUsuarioParameter, dniUsuarioParameter, fecNacimientoUsuarioParameter, telefonoUsuarioParameter, celularUsuarioParameter, idRolParameter);
-        }
-    
-        public virtual int registrarDetalleVenta(Nullable<int> idVenta, Nullable<int> idProducto, Nullable<int> cantidad, Nullable<decimal> precio)
-        {
-            var idVentaParameter = idVenta.HasValue ?
-                new ObjectParameter("idVenta", idVenta) :
-                new ObjectParameter("idVenta", typeof(int));
-    
-            var idProductoParameter = idProducto.HasValue ?
-                new ObjectParameter("idProducto", idProducto) :
-                new ObjectParameter("idProducto", typeof(int));
-    
-            var cantidadParameter = cantidad.HasValue ?
-                new ObjectParameter("cantidad", cantidad) :
-                new ObjectParameter("cantidad", typeof(int));
-    
-            var precioParameter = precio.HasValue ?
-                new ObjectParameter("precio", precio) :
-                new ObjectParameter("precio", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("registrarDetalleVenta", idVentaParameter, idProductoParameter, cantidadParameter, precioParameter);
         }
     
         public virtual int registrarVenta(Nullable<int> idUsuario, Nullable<bool> estadoVenta)

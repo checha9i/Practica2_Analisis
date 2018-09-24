@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -128,20 +130,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="bd_doge.Context.cs">
+    <Compile Include="BaseDeDatos.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>bd_doge.Context.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="bd_doge.cs">
+    <Compile Include="BaseDeDatos.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
-    <Compile Include="bd_doge.Designer.cs">
+    <Compile Include="BaseDeDatos.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>bd_doge.edmx</DependentUpon>
+      <DependentUpon>BaseDeDatos.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
@@ -156,26 +158,36 @@
     <Compile Include="Models\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tb_categoria.cs">
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="tb_producto.cs">
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="tb_rol.cs">
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="tb_usuario.cs">
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="tb_venta.cs">
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="tb_ventaxproducto.cs">
-      <DependentUpon>bd_doge.tt</DependentUpon>
+      <DependentUpon>BaseDeDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\Dto\Correo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BaseDeDatos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BaseDeDatos.edmx</DependentUpon>
+      <LastGenOutput>BaseDeDatos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BaseDeDatos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BaseDeDatos.edmx</DependentUpon>
+      <LastGenOutput>BaseDeDatos.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\css\bootstrap\bootstrap.css" />
     <Content Include="Content\css\jquery.rating.css" />
     <Content Include="Content\css\main.css" />
@@ -204,22 +216,12 @@
     <Content Include="Content\js\jquery.rating.pack.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Global.asax" />
-    <EntityDeploy Include="bd_doge.edmx">
+    <EntityDeploy Include="BaseDeDatos.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>bd_doge.Designer.cs</LastGenOutput>
+      <LastGenOutput>BaseDeDatos.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="bd_doge.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>bd_doge.edmx</DependentUpon>
-      <LastGenOutput>bd_doge.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="bd_doge.edmx.diagram">
-      <DependentUpon>bd_doge.edmx</DependentUpon>
-    </Content>
-    <Content Include="bd_doge.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>bd_doge.edmx</DependentUpon>
-      <LastGenOutput>bd_doge.cs</LastGenOutput>
+    <Content Include="BaseDeDatos.edmx.diagram">
+      <DependentUpon>BaseDeDatos.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

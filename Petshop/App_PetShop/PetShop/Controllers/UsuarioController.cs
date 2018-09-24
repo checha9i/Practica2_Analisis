@@ -12,7 +12,7 @@ namespace PetShop.Controllers
 {
     public class UsuarioController : Controller
     {
-        bd_dogeEntities1 bd_doge = new bd_dogeEntities1();
+        bd_dogeEntitiesSqlServer bd_doge = new bd_dogeEntitiesSqlServer();
 
         [HttpPost]
         public ActionResult RegistrarUsuario(Usuario usu)
