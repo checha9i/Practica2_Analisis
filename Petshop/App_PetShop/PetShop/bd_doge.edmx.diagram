@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="568ef61acb62474c8575ee9d35da10bb" Name="Diagrama1" ZoomLevel="88">
+        <EntityTypeShape EntityType="bd_dogeModel.tb_rol" Width="1.5" PointX="0.75" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="bd_dogeModel.tb_usuario" Width="1.5" PointX="2.875" PointY="2" IsExpanded="false" />
+        <AssociationConnector Association="bd_dogeModel.fk_tb_usuario_tb_rol" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="bd_dogeModel.tb_categoria" Width="1.5" PointX="8.5" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="bd_dogeModel.tb_producto" Width="1.5" PointX="8.5" PointY="1.875" IsExpanded="false" />
+        <AssociationConnector Association="bd_dogeModel.fk_tb_producto_tb_categoria" />
+        <EntityTypeShape EntityType="bd_dogeModel.tb_venta" Width="1.5" PointX="5" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="bd_dogeModel.tb_ventaxproducto" Width="1.5" PointX="6.75" PointY="3.5" IsExpanded="false" />
+        <AssociationConnector Association="bd_dogeModel.fk_tb_ventaxproducto_tb_producto" />
+        <AssociationConnector Association="bd_dogeModel.fk_tb_producto_tb_usuario" />
+        <AssociationConnector Association="bd_dogeModel.fk_tb_ventaxproducto_tb_venta" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

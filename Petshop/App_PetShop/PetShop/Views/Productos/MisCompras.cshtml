@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Mis compras";
+    Layout = "~/Views/Plantillas/plantilla.cshtml";
+    List<PetShop.Models.Venta> misCompras = (List<PetShop.Models.Venta>)ViewBag.misCompras;
+}
+
+<div class="span12">
+
+	 
+	<h1> Mis Compras</h1><br />
+	 
+        <table class="table table-bordered table-striped">
+		  <thead>
+			  <tr>
+				<th style="text-align:center;">Id venta</th>
+				<th style="text-align:center;">Fecha</th>
+				<th style="text-align:center;">Precio total</th>
+                <th style="text-align:center;"></th>
+			  </tr>
+			</thead>
+			<tbody>
+                @foreach(var ven in misCompras){
+                    using (Html.BeginForm("DetalleVenta", "Productos", FormMethod.Post))
+                    {
+			  <tr>
+				<td style="text-align:center;">
+                    <input type="hidden"  value="@ven.idVenta" name="idVenta"/>
+                    @ven.idVenta</td>
+                <td style="text-align:center;">
+                    <input type="hidden"  value="@ven.fechaVenta" name="fechaVenta"/>
+                    @ven.fechaVenta</td>
+                <td style="text-align:center;">
+                    <input type="hidden"  value="@ven.totalventa" name="totalventa"/>
+                    S/. @ven.totalventa.ToString("0.00")</td>
+                <td style="text-align:center;"><input  type="submit" value="Ver detalle" class="btn btn-primary"/></td>
+			  </tr>		
+                    }	  
+                }
+			</tbody>
+		  </table>
+            
+    </div>
+
+<script>
+    $(document).ready(function () {
+    });
+
+</script>

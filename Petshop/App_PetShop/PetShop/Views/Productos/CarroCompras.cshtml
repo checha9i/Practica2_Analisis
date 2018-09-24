@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Carro de Compras";
+    Layout = "~/Views/Plantillas/plantilla.cshtml";
+    List<PetShop.Models.Producto> carro = (List<PetShop.Models.Producto>)Session["carro"];
+}
+
+<div class="span12">
+
+	 
+	<h1> Carro de Compras</h1><br />
+	 <span id="mensaje" style="color:red;"></span>
+        <table class="table table-bordered table-striped">
+		  <thead>
+			  <tr>
+				<th style="text-align:center;">Descartar</th>
+				<th style="text-align:center;">Imagen</th>
+				<th style="text-align:center;">Nombre Producto</th>
+				<th style="text-align:center;">Cantidad</th>
+				<th style="text-align:center;">Precio Unit.</th>
+				<th style="text-align:center;">Total</th>
+			  </tr>
+			</thead>
+			<tbody>
+                @foreach(var prod in carro){
+                    using (Html.BeginForm("CalcularTotal", "Productos", FormMethod.Post, new { id = "form"+@prod.idProducto, onsubmit= String.Concat("return validarStockCarro(",prod.idProducto,");")}))
+                    {
+                    
+			  <tr>
+				<td style="text-align:center;"> <input type="hidden" value="@prod.idProducto" name="idProducto"/>
+                    <a href="@Url.Action("Descartar", "Productos", new { idprod = @prod.idProducto })">Descartar</a></td>
+				<td class="muted center_text"><img src="@Url.Content("~/Content/imagenes/productos/" + @prod.idProducto + ".jpg")" width="50" height="50" /></td>
+				<td>@prod.nomProducto</td>
+				<td style="text-align:center;">
+                    <input type="hidden" id="@String.Concat("txtNombre",@prod.idProducto)" value="@prod.nomProducto" />
+                    <input type="hidden" id="@String.Concat("txtStock",@prod.idProducto)" value="@prod.stockProducto"/>
+                    <input type="text" placeholder="1" class="input-mini" value="@prod.cantidad" 
+                        name="cantidad" onblur="calcularTotal(@prod.idProducto)" id="@String.Concat("txtCantidad",@prod.idProducto)">
+
+				</td>
+				<td>S/. @prod.precioProducto.ToString("0.00")</td>
+				<td>S/. @((prod.precioProducto * prod.cantidad).ToString("0.00"))</td>
+			  </tr>		
+                    }	  
+                }
+			  <tr>
+				<td colspan="5"><span style="float:right;">Total:</span></td>
+				<td><strong>S/. @carro.Sum(Producto => (Producto.precioProducto * Producto.cantidad)).ToString("0.00")</strong></td>
+			  </tr>		  
+			</tbody>
+		  </table>
+		  
+		  <form class="form-horizontal">
+		<fieldset>	  
+		  
+		  
+		            <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  <h3>Usar código de descuento</h3>
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+          <div class="control-group">
+            <label for="input01" class="control-label">Código de descuento: </label>
+            <div class="controls">
+              <input type="text" id="input01" class="input-xlarge" placeholder="Ingresa el código aquí">
+              <p class="help-block">Solo puedes usar un descuento a la vez</p>
+            </div>
+          </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+					<h3>Usar voucher de regalo</h3>
+                </a>
+              </div>
+			                <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+          <div class="control-group">
+            <label for="input01" class="control-label">Voucher de regalo: </label>
+            <div class="controls">
+              <input type="text" id="input01" class="input-xlarge" placeholder="Ingresa el código aquí">
+              <p class="help-block">Puedes usar multiples vouchers de regalo a la vez</p>
+            </div>
+          </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+			<div class="span2">
+           <a href="@Url.Action("Alimentos","Productos")" class="btn btn-primary pull-right">Seguir comprando</a>
+			</div>		  
+			<div class="span5" style="float:right;">
+            <a href="@Url.Action("RealizarCompra","Productos")" class="btn btn-primary pull-right">Realizar compra</a>
+			</div>
+          </div>
+        </fieldset>
+        </form>
+
+    </div>
+
+<script>
+    $(document).ready(function () {
+
+
+        validarStockCarro = function (idProducto) {
+            var cantidad = $("#txtCantidad" + idProducto).val();
+            var stock = $("#txtStock" + idProducto).val();
+            var nombre = $("#txtNombre" + idProducto).val();
+
+
+            if (Number(cantidad) > Number(stock)) {
+                $("#txtCantidad" + idProducto).val(stock);
+                $("#mensaje").html("Lo sentimos, no tenemos stock para la cantidad ingresada, Producto: <b>" + nombre +"</b>, stock: <b>"+stock+"</b>");
+                return false;
+            }
+        };
+
+        calcularTotal = function (idProducto) {
+            $("#form" + idProducto).submit();
+        }
+    });
+
+</script>

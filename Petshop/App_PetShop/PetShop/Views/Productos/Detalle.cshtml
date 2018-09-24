@@ -1,0 +1,148 @@
+﻿@using PetShop.Models;
+@{
+    ViewBag.Title = "Detalle";
+    Producto producto = (Producto)ViewBag.producto;
+
+    string cadenaCategoria = "";
+    Layout = "~/Views/Plantillas/plantilla.cshtml";
+    if (producto != null)
+    {
+        switch (producto.idCategoria)
+        {
+            case 1:
+                cadenaCategoria = "Alimentos";
+                break;
+            case 2:
+                cadenaCategoria = "Ropa";
+                break;
+            case 3:
+                cadenaCategoria = "Juguetes";
+                break;
+        }
+    }
+    List<PetShop.Models.Producto> carro = (List<PetShop.Models.Producto>)Session["carro"];
+}
+
+ <div class="span9">
+	<ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Home")">Inicio</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="@Url.Action(cadenaCategoria, "Productos")">@cadenaCategoria</a>
+        </li>
+    </ul>
+	
+	
+	 <div class="row">
+		 <div class="span9">
+			<h1>@producto.nomProducto</h1>
+		 </div>
+	</div>
+	 <hr>
+	
+	 <div class="row">
+		 <div class="span3">
+			<img id="imgDetalle" alt="" src="@Url.Content("~/Content/imagenes/productos/" + @producto.idProducto + ".jpg")" />
+			
+			
+
+		</div>	 
+	  
+	  <div class="span6">
+	  
+		<div class="span6">
+			<address>
+				<strong>Stock:</strong> <span>@producto.stockProducto</span><br />
+			</address>
+		</div>	
+				
+		<div class="span6">
+			<h2>
+				<strong>Price: S/.@producto.precioProducto.ToString("0.00")</strong> <br /><br />
+			</h2>
+		</div>	
+		
+		<div class="span6">
+            @if (@producto.stockProducto < 1)
+            {
+                <a class="btn btn-primary disabled">Agotado</a>
+            }
+            else
+            {
+                 using (Html.BeginForm("Agregar", "Productos", FormMethod.Post, new { @class = "form-inline",@onsubmit="return validarStock();" }))
+                 {
+				<div class="span3 no_margin_left">
+					<label>Cant:</label>
+                   
+					    <input type="text" class="span1" placeholder="1" name="cantidad" id="txtCantidad">
+                    
+                        <input type="hidden" value="@producto.idProducto" name="idProducto" id ="txtIdProducto" />
+                     @if (carro != null)
+                     {
+                         if ((carro.Find(Producto => Producto.idProducto == producto.idProducto)) == null)
+                         {
+                           <input type="submit" class="btn btn-primary" value="Agregar al carro" />
+                         }
+                         else
+                         {
+                               <a class="btn btn-primary disabled">Agregado</a>
+                         }
+                     }
+                     else
+                     {
+                         <input type="submit" class="btn btn-primary" value="Agregar al carro" />
+                     }
+                    
+				</div>	
+                 }
+            }
+			
+		</div>	
+		<span id="mensaje" style="color:red;"></span>
+		
+		
+	  </div>	
+
+
+  </div>
+   <hr>     </div><script>
+    $(document).ready(function () {
+
+        validarStock = function () {
+            var cantidad = $("#txtCantidad").val();
+            var stock = Number(@producto.stockProducto);
+
+            if (cantidad > stock) {
+                $("#mensaje").text("Lo sentimos, no tenemos stock para la cantidad ingresada");
+                return false;
+            }
+        };
+
+
+        verImagen = function (imagen) {
+            var img = document.getElementById('imgDetalle');
+            $("#imgDetalle").slideToggle();
+            img.src = imagen;
+            $("#imgDetalle").slideToggle();
+        }
+
+     
+       
+        var cat = Number(@producto.idCategoria);
+        switch (cat) {
+            case 1:
+                document.getElementById('catAlimentos').className = "";
+                document.getElementById('catAlimentos').className = "active";
+                break;
+            case 2:
+                document.getElementById('catRopa').className = "";
+                document.getElementById('catRopa').className = "active";
+                break;
+            case 3:
+                document.getElementById('catJuguetes').className = "";
+                document.getElementById('catJuguetes').className = "active";
+                break;
+        }
+    });
+</script>

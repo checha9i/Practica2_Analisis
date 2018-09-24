@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Ropa";
+    Layout = "~/Views/Plantillas/plantilla.cshtml";
+    List<PetShop.Models.Producto> productos = ViewBag.productos;
+    List<PetShop.Models.Producto> carro = (List<PetShop.Models.Producto>)Session["carro"];
+}
+
+<div class="span9">
+    <ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Home")">Inicio</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="@Url.Action("Ropa", "Productos")">Ropa</a>
+        </li>
+    </ul>
+	
+	        @foreach (var prod in productos)
+         {
+	  	 <div class="row">
+	     <div class="span1">
+             @Html.AntiForgeryToken()
+	      <a href="@Url.Action("Detalle", "Productos", new { idprod = @prod.idProducto })">
+            <img alt=""  id="tmp" src="@Url.Content("~/Content/imagenes/productos/" + @prod.idProducto + ".jpg")">
+	      </a>
+	      </div>	 
+	  
+	      <div class="span6">
+	       <a href="@Url.Action("Detalle", "Productos", new { idprod = @prod.idProducto })">
+               <h5>@prod.nomProducto</h5>
+	       </a>
+                  <p>@prod.descProducto</p>
+	      </div>	
+
+	      <div class="span1">
+	       <p>S/.@prod.precioProducto.ToString("0.00")</p>
+	      </div>	 
+	  
+	      <div class="span2" style="float:right;">
+	       <p>
+               @if (prod.stockProducto < 1)
+               {
+                   <a class="btn btn-primary disabled">Agotado</a>
+               }
+               else
+               {
+                    using (Html.BeginForm("Agregar", "Productos", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                   <input type="hidden" value="@prod.idProducto" name="idProducto"/>
+                   <input type="hidden" value="1" name="cantidad"/>
+                        if (carro != null)
+                        {
+                            if ((carro.Find(Producto => Producto.idProducto == prod.idProducto)) == null)
+                            {
+                   <input type="submit" class="btn btn-primary" value="Agregar al carro" />
+                            }
+                            else
+                            {
+                       <a class="btn btn-primary disabled">Agregado</a>
+                            }
+                        }
+                        else
+                        {
+                   <input type="submit" class="btn btn-primary" value="Agregar al carro" />
+                        }
+                    }
+               }
+               
+              
+	       </p>
+	     <!--  <p><a class="" href="#">Add to Wish List</a></p>
+	       <p><a class="" href="compare.html">Add to Compare</a></p> -->
+	      </div>
+      </div>
+      <hr />	 
+         }
+
+	  
+	  
+	      <div class="pagination">
+    <ul>
+    <li><a href="#">Prev</a></li>
+    <li class="active">
+    <a href="#">1</a>
+    </li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">Next</a></li>
+    </ul>
+    </div>
+	  
+		</div>
+<script>
+     document.getElementById('catRopa').className = "";
+     document.getElementById('catRopa').className = "active";
+</script>

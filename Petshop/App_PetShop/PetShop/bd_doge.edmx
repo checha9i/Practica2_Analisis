@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bd_dogeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="bd_dogeModelStoreContainer">
+          <EntitySet Name="tb_categoria" EntityType="bd_dogeModel.Store.tb_categoria" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_producto" EntityType="bd_dogeModel.Store.tb_producto" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_rol" EntityType="bd_dogeModel.Store.tb_rol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_usuario" EntityType="bd_dogeModel.Store.tb_usuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_venta" EntityType="bd_dogeModel.Store.tb_venta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_ventaxproducto" EntityType="bd_dogeModel.Store.tb_ventaxproducto" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="fk_tb_producto_tb_categoria" Association="bd_dogeModel.Store.fk_tb_producto_tb_categoria">
+            <End Role="tb_categoria" EntitySet="tb_categoria" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_producto_tb_usuario" Association="bd_dogeModel.Store.fk_tb_producto_tb_usuario">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_venta" EntitySet="tb_venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_usuario_tb_rol" Association="bd_dogeModel.Store.fk_tb_usuario_tb_rol">
+            <End Role="tb_rol" EntitySet="tb_rol" />
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_ventaxproducto_tb_producto" Association="bd_dogeModel.Store.fk_tb_ventaxproducto_tb_producto">
+            <End Role="tb_producto" EntitySet="tb_producto" />
+            <End Role="tb_ventaxproducto" EntitySet="tb_ventaxproducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_ventaxproducto_tb_venta" Association="bd_dogeModel.Store.fk_tb_ventaxproducto_tb_venta">
+            <End Role="tb_venta" EntitySet="tb_venta" />
+            <End Role="tb_ventaxproducto" EntitySet="tb_ventaxproducto" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tb_categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descCategoria" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="estadoCategoria" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nomProducto" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="descProducto" Type="text" />
+          <Property Name="precioProducto" Type="decimal" Nullable="false" Precision="16" Scale="3" />
+          <Property Name="stockProducto" Type="int" Nullable="false" />
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="estadoProducto" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descRol" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="estadoRol" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="correoUsuario" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="claveUsuario" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="nombresUsuario" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="apePatUsuario" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="apeMatUsuario" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="dniUsuario" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="fecNacimientoUsuario" Type="date" Nullable="false" />
+          <Property Name="telefonoUsuario" Type="varchar" MaxLength="9" />
+          <Property Name="celularUsuario" Type="varchar" MaxLength="11" />
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="verificadoUsuario" Type="bit" Nullable="false" />
+          <Property Name="estadoUsuario" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_venta">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="fechaVenta" Type="datetime" Nullable="false" />
+          <Property Name="estadoVenta" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ventaxproducto">
+          <Key>
+            <PropertyRef Name="idVenta" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idVenta" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="precio" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="subtotal" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="estadoVentaxProd" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_tb_producto_tb_categoria">
+          <End Role="tb_categoria" Type="bd_dogeModel.Store.tb_categoria" Multiplicity="1" />
+          <End Role="tb_producto" Type="bd_dogeModel.Store.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_producto_tb_usuario">
+          <End Role="tb_usuario" Type="bd_dogeModel.Store.tb_usuario" Multiplicity="1" />
+          <End Role="tb_venta" Type="bd_dogeModel.Store.tb_venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="tb_venta">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_usuario_tb_rol">
+          <End Role="tb_rol" Type="bd_dogeModel.Store.tb_rol" Multiplicity="1" />
+          <End Role="tb_usuario" Type="bd_dogeModel.Store.tb_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="tb_usuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_ventaxproducto_tb_producto">
+          <End Role="tb_producto" Type="bd_dogeModel.Store.tb_producto" Multiplicity="1" />
+          <End Role="tb_ventaxproducto" Type="bd_dogeModel.Store.tb_ventaxproducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="tb_ventaxproducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_ventaxproducto_tb_venta">
+          <End Role="tb_venta" Type="bd_dogeModel.Store.tb_venta" Multiplicity="1" />
+          <End Role="tb_ventaxproducto" Type="bd_dogeModel.Store.tb_ventaxproducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_venta">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="tb_ventaxproducto">
+              <PropertyRef Name="idVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="registrarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVenta" Type="int" Mode="In" />
+          <Parameter Name="idProducto" Type="int" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+          <Parameter Name="precio" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="registrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="correoUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="claveUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="nombresUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="apePatUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="apeMatUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="dniUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="fecNacimientoUsuario" Type="date" Mode="In" />
+          <Parameter Name="telefonoUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="celularUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="idRol" Type="int" Mode="In" />
+        </Function>
+        <Function Name="registrarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="estadoVenta" Type="bit" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bd_dogeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="bd_dogeEntities1" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_rol" EntityType="bd_dogeModel.tb_rol" />
+          <EntitySet Name="tb_usuario" EntityType="bd_dogeModel.tb_usuario" />
+          <AssociationSet Name="fk_tb_usuario_tb_rol" Association="bd_dogeModel.fk_tb_usuario_tb_rol">
+            <End Role="tb_rol" EntitySet="tb_rol" />
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+          </AssociationSet>
+          <FunctionImport Name="registrarUsuario">
+            <Parameter Name="correoUsuario" Mode="In" Type="String" />
+            <Parameter Name="claveUsuario" Mode="In" Type="String" />
+            <Parameter Name="nombresUsuario" Mode="In" Type="String" />
+            <Parameter Name="apePatUsuario" Mode="In" Type="String" />
+            <Parameter Name="apeMatUsuario" Mode="In" Type="String" />
+            <Parameter Name="dniUsuario" Mode="In" Type="String" />
+            <Parameter Name="fecNacimientoUsuario" Mode="In" Type="DateTime" />
+            <Parameter Name="telefonoUsuario" Mode="In" Type="String" />
+            <Parameter Name="celularUsuario" Mode="In" Type="String" />
+            <Parameter Name="idRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tb_categoria" EntityType="bd_dogeModel.tb_categoria" />
+          <EntitySet Name="tb_producto" EntityType="bd_dogeModel.tb_producto" />
+          <AssociationSet Name="fk_tb_producto_tb_categoria" Association="bd_dogeModel.fk_tb_producto_tb_categoria">
+            <End Role="tb_categoria" EntitySet="tb_categoria" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <EntitySet Name="tb_venta" EntityType="bd_dogeModel.tb_venta" />
+          <EntitySet Name="tb_ventaxproducto" EntityType="bd_dogeModel.tb_ventaxproducto" />
+          <AssociationSet Name="fk_tb_ventaxproducto_tb_producto" Association="bd_dogeModel.fk_tb_ventaxproducto_tb_producto">
+            <End Role="tb_producto" EntitySet="tb_producto" />
+            <End Role="tb_ventaxproducto" EntitySet="tb_ventaxproducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_producto_tb_usuario" Association="bd_dogeModel.fk_tb_producto_tb_usuario">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_venta" EntitySet="tb_venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_ventaxproducto_tb_venta" Association="bd_dogeModel.fk_tb_ventaxproducto_tb_venta">
+            <End Role="tb_venta" EntitySet="tb_venta" />
+            <End Role="tb_ventaxproducto" EntitySet="tb_ventaxproducto" />
+          </AssociationSet>
+          <FunctionImport Name="registrarDetalleVenta">
+            <Parameter Name="idVenta" Mode="In" Type="Int32" />
+            <Parameter Name="idProducto" Mode="In" Type="Int32" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="registrarVenta">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="estadoVenta" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="tb_rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="descRol" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
+          <Property Name="estadoRol" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tb_usuario" Relationship="bd_dogeModel.fk_tb_usuario_tb_rol" FromRole="tb_rol" ToRole="tb_usuario" />
+        </EntityType>
+        <EntityType Name="tb_usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="correoUsuario" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="claveUsuario" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="nombresUsuario" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="apePatUsuario" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="apeMatUsuario" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="dniUsuario" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="fecNacimientoUsuario" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="telefonoUsuario" Type="String" MaxLength="9" Unicode="false" FixedLength="false" />
+          <Property Name="celularUsuario" Type="String" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="verificadoUsuario" Type="Boolean" Nullable="false" />
+          <Property Name="estadoUsuario" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tb_rol" Relationship="bd_dogeModel.fk_tb_usuario_tb_rol" FromRole="tb_usuario" ToRole="tb_rol" />
+          <NavigationProperty Name="tb_venta" Relationship="bd_dogeModel.fk_tb_producto_tb_usuario" FromRole="tb_usuario" ToRole="tb_venta" />
+        </EntityType>
+        <Association Name="fk_tb_usuario_tb_rol">
+          <End Role="tb_rol" Type="bd_dogeModel.tb_rol" Multiplicity="1" />
+          <End Role="tb_usuario" Type="bd_dogeModel.tb_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="tb_usuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tb_categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Type="Int32" Name="idCategoria" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descCategoria" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="estadoCategoria" Nullable="false" />
+          <NavigationProperty Name="tb_producto" Relationship="bd_dogeModel.fk_tb_producto_tb_categoria" FromRole="tb_categoria" ToRole="tb_producto" />
+        </EntityType>
+        <EntityType Name="tb_producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Type="Int32" Name="idProducto" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nomProducto" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="descProducto" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="precioProducto" Nullable="false" Precision="16" Scale="3" />
+          <Property Type="Int32" Name="stockProducto" Nullable="false" />
+          <Property Type="Int32" Name="idCategoria" Nullable="false" />
+          <Property Type="Boolean" Name="estadoProducto" Nullable="false" />
+          <NavigationProperty Name="tb_categoria" Relationship="bd_dogeModel.fk_tb_producto_tb_categoria" FromRole="tb_producto" ToRole="tb_categoria" />
+          <NavigationProperty Name="tb_ventaxproducto" Relationship="bd_dogeModel.fk_tb_ventaxproducto_tb_producto" FromRole="tb_producto" ToRole="tb_ventaxproducto" />
+        </EntityType>
+        <Association Name="fk_tb_producto_tb_categoria">
+          <End Type="bd_dogeModel.tb_categoria" Role="tb_categoria" Multiplicity="1" />
+          <End Type="bd_dogeModel.tb_producto" Role="tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tb_venta">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Type="Int32" Name="idVenta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="idUsuario" Nullable="false" />
+          <Property Type="DateTime" Name="fechaVenta" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="estadoVenta" Nullable="false" />
+          <NavigationProperty Name="tb_usuario" Relationship="bd_dogeModel.fk_tb_producto_tb_usuario" FromRole="tb_venta" ToRole="tb_usuario" />
+          <NavigationProperty Name="tb_ventaxproducto" Relationship="bd_dogeModel.fk_tb_ventaxproducto_tb_venta" FromRole="tb_venta" ToRole="tb_ventaxproducto" />
+        </EntityType>
+        <EntityType Name="tb_ventaxproducto">
+          <Key>
+            <PropertyRef Name="idVenta" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Type="Int32" Name="idVenta" Nullable="false" />
+          <Property Type="Int32" Name="idProducto" Nullable="false" />
+          <Property Type="Int32" Name="cantidad" Nullable="false" />
+          <Property Type="Decimal" Name="precio" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="subtotal" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Boolean" Name="estadoVentaxProd" Nullable="false" />
+          <NavigationProperty Name="tb_producto" Relationship="bd_dogeModel.fk_tb_ventaxproducto_tb_producto" FromRole="tb_ventaxproducto" ToRole="tb_producto" />
+          <NavigationProperty Name="tb_venta" Relationship="bd_dogeModel.fk_tb_ventaxproducto_tb_venta" FromRole="tb_ventaxproducto" ToRole="tb_venta" />
+        </EntityType>
+        <Association Name="fk_tb_ventaxproducto_tb_producto">
+          <End Type="bd_dogeModel.tb_producto" Role="tb_producto" Multiplicity="1" />
+          <End Type="bd_dogeModel.tb_ventaxproducto" Role="tb_ventaxproducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="tb_ventaxproducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_producto_tb_usuario">
+          <End Type="bd_dogeModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
+          <End Type="bd_dogeModel.tb_venta" Role="tb_venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="tb_venta">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_ventaxproducto_tb_venta">
+          <End Type="bd_dogeModel.tb_venta" Role="tb_venta" Multiplicity="1" />
+          <End Type="bd_dogeModel.tb_ventaxproducto" Role="tb_ventaxproducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_venta">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="tb_ventaxproducto">
+              <PropertyRef Name="idVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bd_dogeModelStoreContainer" CdmEntityContainer="bd_dogeEntities1">
+          <EntitySetMapping Name="tb_rol">
+            <EntityTypeMapping TypeName="bd_dogeModel.tb_rol">
+              <MappingFragment StoreEntitySet="tb_rol">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="descRol" ColumnName="descRol" />
+                <ScalarProperty Name="estadoRol" ColumnName="estadoRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_usuario">
+            <EntityTypeMapping TypeName="bd_dogeModel.tb_usuario">
+              <MappingFragment StoreEntitySet="tb_usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="correoUsuario" ColumnName="correoUsuario" />
+                <ScalarProperty Name="claveUsuario" ColumnName="claveUsuario" />
+                <ScalarProperty Name="nombresUsuario" ColumnName="nombresUsuario" />
+                <ScalarProperty Name="apePatUsuario" ColumnName="apePatUsuario" />
+                <ScalarProperty Name="apeMatUsuario" ColumnName="apeMatUsuario" />
+                <ScalarProperty Name="dniUsuario" ColumnName="dniUsuario" />
+                <ScalarProperty Name="fecNacimientoUsuario" ColumnName="fecNacimientoUsuario" />
+                <ScalarProperty Name="telefonoUsuario" ColumnName="telefonoUsuario" />
+                <ScalarProperty Name="celularUsuario" ColumnName="celularUsuario" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="verificadoUsuario" ColumnName="verificadoUsuario" />
+                <ScalarProperty Name="estadoUsuario" ColumnName="estadoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="registrarUsuario" FunctionName="bd_dogeModel.Store.registrarUsuario" />
+          <EntitySetMapping Name="tb_categoria">
+            <EntityTypeMapping TypeName="bd_dogeModel.tb_categoria">
+              <MappingFragment StoreEntitySet="tb_categoria">
+                <ScalarProperty Name="estadoCategoria" ColumnName="estadoCategoria" />
+                <ScalarProperty Name="descCategoria" ColumnName="descCategoria" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_producto">
+            <EntityTypeMapping TypeName="bd_dogeModel.tb_producto">
+              <MappingFragment StoreEntitySet="tb_producto">
+                <ScalarProperty Name="estadoProducto" ColumnName="estadoProducto" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="stockProducto" ColumnName="stockProducto" />
+                <ScalarProperty Name="precioProducto" ColumnName="precioProducto" />
+                <ScalarProperty Name="descProducto" ColumnName="descProducto" />
+                <ScalarProperty Name="nomProducto" ColumnName="nomProducto" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_venta">
+            <EntityTypeMapping TypeName="bd_dogeModel.tb_venta">
+              <MappingFragment StoreEntitySet="tb_venta">
+                <ScalarProperty Name="estadoVenta" ColumnName="estadoVenta" />
+                <ScalarProperty Name="fechaVenta" ColumnName="fechaVenta" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ventaxproducto">
+            <EntityTypeMapping TypeName="bd_dogeModel.tb_ventaxproducto">
+              <MappingFragment StoreEntitySet="tb_ventaxproducto">
+                <ScalarProperty Name="estadoVentaxProd" ColumnName="estadoVentaxProd" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="registrarDetalleVenta" FunctionName="bd_dogeModel.Store.registrarDetalleVenta" />
+          <FunctionImportMapping FunctionImportName="registrarVenta" FunctionName="bd_dogeModel.Store.registrarVenta" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
