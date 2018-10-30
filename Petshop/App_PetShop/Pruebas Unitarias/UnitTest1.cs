@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PetShop;
+using NUnit.Framework;
 
 namespace Pruebas_Unitarias
 {
@@ -12,35 +13,36 @@ namespace Pruebas_Unitarias
         public void Modelo_Venta()
         {
             var Tabla = new PetShop.tb_venta();
-            Assert.IsNotNull(Tabla);
+
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(Tabla);
         }
 
         [TestMethod]
         public void Modelo_Usuario()
         {
             var Tabla = new PetShop.tb_usuario();
-            Assert.IsNotNull(Tabla);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(Tabla);
         }
 
         [TestMethod]
         public void Modelo_Rol()
         {
             var Tabla = new PetShop.tb_rol();
-            Assert.IsNotNull(Tabla);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(Tabla);
         }
 
         [TestMethod]
         public void Modelo_Producto()
         {
             var Tabla = new PetShop.tb_producto();
-            Assert.IsNotNull(Tabla);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(Tabla);
         }
 
         [TestMethod]
         public void Modelo_Categoria()
         {
             var Tabla = new PetShop.tb_categoria();
-            Assert.IsNotNull(Tabla);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(Tabla);
         }
 
         //Se comenzara a probar el controlador de usuario
@@ -51,7 +53,7 @@ namespace Pruebas_Unitarias
             PetShop.Models.Usuario usuario = new PetShop.Models.Usuario();
             usuario.correoUsuario = "gerson@epicgames.com";
             var login = ControladorUSuario.loginUsuario(usuario);
-            Assert.AreNotEqual(login, null);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreNotEqual(login, null);
         }
 
         [TestMethod]
@@ -60,7 +62,7 @@ namespace Pruebas_Unitarias
             var ControladorUSuario = new PetShop.Controllers.UsuarioController();
             PetShop.Models.Usuario usuario = new PetShop.Models.Usuario();
             var login = ControladorUSuario.loginUsuario(usuario);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -69,7 +71,7 @@ namespace Pruebas_Unitarias
             var ControladorUSuario = new PetShop.Controllers.UsuarioController();
             PetShop.Models.Usuario usuario = new PetShop.Models.Usuario();
             var login = ControladorUSuario.logouUsuario();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -77,18 +79,18 @@ namespace Pruebas_Unitarias
         {
             var ControladorUSuario = new PetShop.Controllers.UsuarioController();
             PetShop.Models.Usuario usuario = new PetShop.Models.Usuario();
-            usuario.correoUsuario = "gerson@epicgames.com";
-            usuario.claveUsuario = "fortnite";
-            usuario.nombresUsuario = "gerson";
-            usuario.apeMatUsuario = "rojas";
-            usuario.apePatUsuario = "rojas";
 
-            usuario.dniUsuario = "123";
-            usuario.fecNacimientoUsuario = new DateTime(2018,2,2);
-            usuario.telefonoUsuario = "1123";
-            usuario.celularUsuario = "salu";
+            usuario.correoUsuario = Guid.NewGuid().ToString("n").Substring(0, 8) + "@gmail.com";
+            usuario.claveUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
+            usuario.nombresUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
+            usuario.apeMatUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
+            usuario.apePatUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
+            usuario.dniUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
+            usuario.fecNacimientoUsuario = new DateTime(2018, 2, 2);
+            usuario.telefonoUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
+            usuario.celularUsuario = Guid.NewGuid().ToString("n").Substring(0, 8);
             var login = ControladorUSuario.RegistrarUsuario(usuario);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         //Se comenzara a probar el controlador de productos
@@ -97,7 +99,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.Alimentos();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -105,7 +107,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.Ropa();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -113,7 +115,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.Juguetes();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -121,7 +123,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.Detalle(1);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -129,7 +131,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.CarroCompras();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -137,7 +139,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.Descartar(1);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -146,7 +148,7 @@ namespace Pruebas_Unitarias
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             PetShop.Models.Venta Venta = new PetShop.Models.Venta();
             var login = ControladorProducto.DetalleVenta(Venta);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -158,9 +160,9 @@ namespace Pruebas_Unitarias
             Producto.nomProducto = "jaja";
             Producto.precioProducto = 1234.123;
             Producto.stockProducto = 1;
-            Producto.idCategoria = 1;   
+            Producto.idCategoria = 1;
             var login = ControladorProducto.Agregar(Producto);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -174,7 +176,7 @@ namespace Pruebas_Unitarias
             Producto.stockProducto = 1;
             Producto.idCategoria = 2;
             var login = ControladorProducto.Agregar(Producto);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -188,7 +190,7 @@ namespace Pruebas_Unitarias
             Producto.stockProducto = 1;
             Producto.idCategoria = 3;
             var login = ControladorProducto.Agregar(Producto);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -202,7 +204,7 @@ namespace Pruebas_Unitarias
             Producto.stockProducto = 1;
             Producto.idCategoria = 3;
             var login = ControladorProducto.CalcularTotal(Producto);
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -210,7 +212,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.MisCompras();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         [TestMethod]
@@ -218,7 +220,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorProducto = new PetShop.Controllers.ProductosController();
             var login = ControladorProducto.RealizarCompra();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
 
         //Se comenzara a probar el controlador de home
@@ -227,7 +229,7 @@ namespace Pruebas_Unitarias
         {
             var ControladorHome = new PetShop.Controllers.HomeController();
             var login = ControladorHome.Index();
-            Assert.IsNotNull(login);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
     }
 }
