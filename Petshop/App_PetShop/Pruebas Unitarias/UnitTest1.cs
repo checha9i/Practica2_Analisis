@@ -231,5 +231,7 @@ namespace Pruebas_Unitarias
             var login = ControladorHome.Index();
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(login);
         }
+
+        //commit sencillo
     }
 }
